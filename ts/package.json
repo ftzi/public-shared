@@ -1,0 +1,40 @@
+{
+  "name": "@ftzi/shared",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared test helpers and git-hook bins for consumers (code slice of the private shared pool).",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./locale-tests": "./src/locale-tests.ts",
+    "./pglite-test": "./src/pglite-test.ts",
+    "./seo": "./src/seo.ts",
+    "./languages": "./src/languages.ts",
+    "./scripts/check-branch": "./scripts/check-branch.ts",
+    "./scripts/lane-prep": "./scripts/lane-prep.ts",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "check-branch": "./scripts/check-branch.ts",
+    "lane-prep": "./scripts/lane-prep.ts"
+  },
+  "scripts": {
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "@electric-sql/pglite": "^0.5.4",
+    "drizzle-orm": ">=0.45.2"
+  },
+  "peerDependenciesMeta": {
+    "@electric-sql/pglite": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    }
+  }
+}
