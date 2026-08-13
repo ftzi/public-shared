@@ -7,7 +7,7 @@
   "type": "module",
   "exports": {
     "./locale-tests": "./src/locale-tests.ts",
-    "./pglite": "./src/pglite.ts",
+    "./pglite-test-utils": "./src/pglite-test-utils.ts",
     "./seo": "./src/seo.ts",
     "./languages": "./src/languages.ts",
     "./scripts/check-branch": "./scripts/check-branch.ts",
