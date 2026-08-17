@@ -16,7 +16,7 @@ type Metadata = {
   // The graph is the design-review surface — every declaration MUST carry a
   // description so complexity is visible before it lands (see the
   // 1-product-audit skill).
-  readonly description?: string;
+  readonly description: string;
   readonly skills?: readonly string[];
   readonly tests?: readonly TestRef[];
   readonly screenshots?: readonly ScreenshotRef[];
@@ -28,7 +28,7 @@ type Outcome = {
 
 type OutcomeHandler = {
   readonly navigatesTo?: Screen;
-  readonly show?: Component;
+  readonly show?: Component | Region;
 };
 
 export type Action = Metadata & {
@@ -50,34 +50,50 @@ export type Component = Metadata & {
   readonly on?: Readonly<Record<string, OutcomeHandler>>;
 };
 
+export type Region = Metadata & {
+  readonly kind: "region";
+  readonly components: Readonly<Record<string, Component>>;
+  readonly regions: Readonly<Record<string, Region>>;
+};
+
 export type Screen = Metadata & {
   readonly kind: "screen";
   readonly route: string;
-  readonly components: Readonly<Record<string, Component>>;
+  readonly regions: Readonly<Record<string, Region>>;
 };
 
-export type Product = {
+export type Product = Metadata & {
   readonly kind: "product";
   readonly systems: Readonly<Record<string, System>>;
   readonly screens: Readonly<Record<string, Screen>>;
 };
 
-export function action(input: Omit<Action, "kind">): Action {
-  return { kind: "action" as const, ...input };
-}
+export const action = (input: Omit<Action, "kind">): Action => ({
+  kind: "action",
+  ...input,
+});
 
-export function system(input: Omit<System, "kind">): System {
-  return { kind: "system" as const, ...input };
-}
+export const system = (input: Omit<System, "kind">): System => ({
+  kind: "system",
+  ...input,
+});
 
-export function component(input: Omit<Component, "kind">): Component {
-  return { kind: "component" as const, ...input };
-}
+export const component = (input: Omit<Component, "kind">): Component => ({
+  kind: "component",
+  ...input,
+});
 
-export function screen(input: Omit<Screen, "kind">): Screen {
-  return { kind: "screen" as const, ...input };
-}
+export const region = (input: Omit<Region, "kind">): Region => ({
+  kind: "region",
+  ...input,
+});
 
-export function product(input: Omit<Product, "kind">): Product {
-  return { kind: "product" as const, ...input };
-}
+export const screen = (input: Omit<Screen, "kind">): Screen => ({
+  kind: "screen",
+  ...input,
+});
+
+export const product = (input: Omit<Product, "kind">): Product => ({
+  kind: "product",
+  ...input,
+});
